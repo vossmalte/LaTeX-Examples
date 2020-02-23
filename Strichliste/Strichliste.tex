@@ -1,0 +1,41 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[a4paper, landscape,bottom=1cm,left=2cm,right=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{eurosym}
+\usepackage{units}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\input{plotPage}
+\input{Teams}
+
+\pagestyle{myheadings}
+\markright{Event Name}
+
+\def\arraystretch{1.5}		% larger rows (1 is standard)
+
+\begin{document}
+
+\makeatletter
+    \@for\teamname:={\teams}\do{
+		\plotTable{\teamname}
+		\vfill	% team List at bottom of page
+		\noindent
+		% plot team list
+		\makeatletter
+			\@for\teamnameBottom:={\teams}\do{
+				\ifthenelse{\equal{\teamname}{\teamnameBottom}}
+					% if current page is team, emphasize!
+					{\Large\textbf{\teamnameBottom}\normalsize}
+					{\teamnameBottom}
+				\hfill
+			}
+		\makeatother
+		\newpage
+		}
+\makeatother
+
+\end{document}
